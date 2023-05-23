@@ -6,7 +6,11 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.params.provider.CsvFileSource;
 
 public class CalculatorTest {
 
@@ -45,5 +49,50 @@ public class CalculatorTest {
 		double result = calculadora.divide(4, 2);
 		assertEquals(2, result);
 	}
+	/*
+	 * Fase 2
+	 */
 	
+	@ParameterizedTest
+	@DisplayName("ParameterizedTest CSV SOURCE")
+	@CsvSource({"2, 3, 5", "-1, 5, 4", "0, 0, 0"})
+	
+	void testAddParameterizedCsvsource(int valor1, int valor2, int esperado) {
+		int result = calculadora.add(valor1, valor2);
+		Assert.assertEquals(result, esperado);
+	}
+	
+	@ParameterizedTest
+	@DisplayName("ParameterizedTest CSV SOURCE")
+	@CsvFileSource(resources = "datos.csv")
+	
+	void testAddParameterizedCsvFileSource(int valor1, int valor2, int esperado) {
+		int result = calculadora.add(valor1, valor2);
+		Assert.assertEquals(result, esperado);
+	}
+	
+	@ParameterizedTest
+	@DisplayName("ParameterizedTest CSV SOURCE")
+	@CsvFileSource(resources = "datos2.csv")
+	
+	void testSubtractParameterizedCsvFileSource(int valor1, int valor2, int esperado) {
+		int result = calculadora.subtract(valor1, valor2);
+		Assert.assertEquals(result, esperado);
+	}
+	
+	@ParameterizedTest
+	@DisplayName("ParameterizedTest CSV SOURCE")
+	@CsvFileSource(resources = "datos3.csv")
+	void testMultiplyParameterizedCsvFileSource(int valor1, int valor2, int esperado) {
+		int result = calculadora.multiply(valor1, valor2);
+		Assert.assertEquals(result, esperado);
+	}
+	
+	@Test
+	@DisplayName("Divisor cero ERROR")
+	void testDivisorCero() {
+		IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+			calculadora.divide(5, 0);
+		});
+	}
 }
