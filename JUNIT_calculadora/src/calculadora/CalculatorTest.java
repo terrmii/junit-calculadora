@@ -4,13 +4,17 @@ package calculadora;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.util.concurrent.TimeUnit;
+
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Timeout;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.provider.CsvFileSource;
+
 
 public class CalculatorTest {
 
@@ -95,4 +99,26 @@ public class CalculatorTest {
 			calculadora.divide(5, 0);
 		});
 	}
+	
+	/*
+	 * tiempo
+	 */
+	
+	@Test
+	@Timeout(value = 1, unit = TimeUnit.NANOSECONDS)
+	public void testAddTiempoMal() {
+		int result = calculadora.add(2, 3);
+		Assert.assertEquals(5, result);
+	}
+	
+	@Test
+	@Timeout(value = 500, unit = TimeUnit.MILLISECONDS)
+	public void testAddTiempoBien() {
+		int result = calculadora.add(2, 3);
+		Assert.assertEquals(5, result);
+	}
+	
+	
 }
+
+
